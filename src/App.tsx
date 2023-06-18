@@ -1,3 +1,4 @@
+
 import {
   AuthBindings,
   Authenticated,
@@ -29,18 +30,33 @@ import {
   BlogPostEdit,
   BlogPostList,
   BlogPostShow,
-} from "pages/blog-posts";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "pages/categories";
-import { Login } from "pages/login";
+} from "pages/Posts";
+import { 
+  Login,
+  Home,
+  //Agents,
+  //MyProfile,
+  //PropertyDetails,
+  //AllProperties,
+  //CreateProperty,
+  //AgentProfile,
+ //EditProperty,
+ } from "pages";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { parseJwt } from "utils/parse-jwt";
-import { Header } from "./components/header";
+import { Header } from "./components/layout/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutline,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from '@mui/icons-material'
+
+//const DashboardPage = () => <div> Dashboard Page </div>;
+
+
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -148,26 +164,49 @@ function App() {
               authProvider={authProvider}
               resources={[
                 {
-                  name: "blog_posts",
-                  list: "/blog-posts",
-                  create: "/blog-posts/create",
-                  edit: "/blog-posts/edit/:id",
-                  show: "/blog-posts/show/:id",
+                  name: "properties",
+                  list: "/posts",
+                  icon: <VillaOutlined />,
                   meta: {
                     canDelete: true,
                   },
                 },
                 {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
+                  name: "agent",
+                  list: "/posts",
+                  icon: <PeopleAltOutlined />,
                   meta: {
                     canDelete: true,
                   },
                 },
+                {
+                  name: "review",
+                  list: "/posts",
+                  icon: <StarOutlineRounded />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "message",
+                  list: "/posts",
+                  icon: <ChatBubbleOutline />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "my-profile",
+                  options: { label: 'My Profile'},
+                  list: "/posts",
+                  icon: <AccountCircleOutlined />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+               
               ]}
+              DashboardPage={Home}
               options={{
                 syncWithLocation: true,
                 warnWhenUnsavedChanges: true,
@@ -185,19 +224,13 @@ function App() {
                 >
                   <Route
                     index
-                    element={<NavigateToResource resource="blog_posts" />}
+                    element={<NavigateToResource resource="posts" />}
                   />
-                  <Route path="/blog-posts">
+                  <Route path="/posts">
                     <Route index element={<BlogPostList />} />
                     <Route path="create" element={<BlogPostCreate />} />
                     <Route path="edit/:id" element={<BlogPostEdit />} />
                     <Route path="show/:id" element={<BlogPostShow />} />
-                  </Route>
-                  <Route path="/categories">
-                    <Route index element={<CategoryList />} />
-                    <Route path="create" element={<CategoryCreate />} />
-                    <Route path="edit/:id" element={<CategoryEdit />} />
-                    <Route path="show/:id" element={<CategoryShow />} />
                   </Route>
                   <Route path="*" element={<ErrorComponent />} />
                 </Route>
@@ -210,6 +243,7 @@ function App() {
                 >
                   <Route path="/login" element={<Login />} />
                 </Route>
+               
               </Routes>
 
               <RefineKbar />

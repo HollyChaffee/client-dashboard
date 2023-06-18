@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { ThemedTitleV2 } from "@refinedev/mui";
+import { yariga } from '../assets';
 
 import { CredentialResponse } from "../interfaces/google";
 
@@ -60,17 +61,17 @@ export const Login: React.FC = () => {
         gap="36px"
         justifyContent="center"
         flexDirection="column"
+        sx={{ backgroundColor:'#FCFCFC'}}
       >
-        <ThemedTitleV2
-          collapsed={false}
-          wrapperStyles={{
-            fontSize: "22px",
-            justifyContent: "center",
-          }}
-        />
-
+        <div>
+          
+          <img src={yariga} alt="Yariga Logo" />
+        
+        </div>
+      
+         
         <GoogleButton />
-
+       
         <Typography align="center" color={"text.secondary"} fontSize="12px">
           Powered by
           <img
@@ -79,7 +80,7 @@ export const Login: React.FC = () => {
             src="https://refine.ams3.cdn.digitaloceanspaces.com/superplate-auth-icons%2Fgoogle.svg"
           />
           Google
-        </Typography>
+        </Typography> 
       </Box>
     </Container>
   );
